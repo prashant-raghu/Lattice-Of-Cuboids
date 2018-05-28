@@ -13,7 +13,8 @@ var srcind;
 var snkind;
 var garbage;
 var counter;
-var cond= false;
+var cond = false;
+
 function bubbleSort() {
   var len = sortedval.length;
   for (var i = len - 1; i >= 0; i--) {
@@ -302,16 +303,15 @@ function pop() {
 Array.prototype.clone
 
 function find() {
-      dataJson = backupJson;
-   srcind = Math.min(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
-    snkind = Math.max(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
+  dataJson = backupJson;
+  srcind = Math.min(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
+  snkind = Math.max(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
 
   if (snkind > last) {
     document.querySelector('.nil').innerHTML = "Path doesn't exist";
-  } 
-  else {
+  } else {
 
-   
+
     lowerarray = wholearray.slice(srcind - 1, srcind);
     lowerarray = lowerarray[0];
 
@@ -320,36 +320,44 @@ function find() {
 
     subarray = wholearray.slice(snkind - 1, snkind);
     subarray = subarray[0];
-   
-     if (lowerarray.length === greaterarray.length) {
-      document.querySelector('.nil').innerHTML = "Path doesn't exist";
-    } 
 
-    
-      document.querySelector('.nil').innerHTML = "Path Highlighted";
+    if (lowerarray.length === greaterarray.length) {
 
-      console.log(lowerarray);
-      console.log(greaterarray);
-      for (val1 of lowerarray) {
-        for (val2 of greaterarray) {
-          if (val1 === val2) {
-            var dex = subarray.indexOf(val2);
-            var removed = subarray.splice(dex, 1);
-          }
+    }
+
+
+
+
+
+    for (val1 of lowerarray) {
+      for (val2 of greaterarray) {
+        if (val1 === val2) {
+          var dex = subarray.indexOf(val2);
+          var removed = subarray.splice(dex, 1);
         }
       }
-      subarrayval = [];
-      for (l of subarray) {
-        ind = set.indexOf(l);
-        subarrayval.push(value[ind]);
-      }
-      sortedname = subarray.slice(0);
-      sortedval = subarrayval.slice(0);
-      var call = bubbleSort();
-      console.log(subarray);
-      console.log(sortedname);
-      console.log(sortedval);
-    
-   
+    }
+    subarrayval = [];
+    for (l of subarray) {
+      ind = set.indexOf(l);
+      subarrayval.push(value[ind]);
+    }
+    sortedname = subarray.slice(0);
+    sortedval = subarrayval.slice(0);
+    var call = bubbleSort();
+    console.log(lowerarray);
+    console.log(greaterarray);
+    console.log(subarray);
+    console.log(sortedname);
+    console.log(sortedval);
+    if (subarray.length = greaterarray.length - lowerarray.length) {
+      document.querySelector('.nil').innerHTML = "Path doesn't exist";
+    }
+    else {
+    document.querySelector('.nil').innerHTML = "Path Highlighted";
+    //fun begins//most intense part of the code begins here
+    }
+
+
   }
 }
