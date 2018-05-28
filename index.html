@@ -1,0 +1,65 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>Lattice optimal path</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <link type="text/css" rel="stylesheet" href="materialize.min.css"  media="screen,projection"/>
+
+    <style type="text/css">
+
+    .bodi {
+      font-family: helvetica;
+      font-size: 18px;
+    }
+
+    #Lattice {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 999;
+
+    }
+
+    h1 {
+      opacity: 0.3;
+      font-size: 1em;
+    }
+  </style>
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch"></script>
+  <script src="./cytoscape.min.js"></script>
+</head>
+<body class="bodi" onload="generate()">
+  <div class="row">
+    <div class="col s12">
+      <div class="resultname"></div>
+      <div class="resultvalue"></div>
+      <a class="waves-effect waves-light btn" value="Generate" style="z-index: 1000; position: relative;" onclick="generate()">Generate</a>
+      <div style="z-index: 1000; position: relative;">
+       <input placeholder="attrribute name" id="name" type="text" class="validate">
+       <label for="name">Attribute Name</label></div>
+      <div style="z-index: 1000; position: relative;">
+        <input placeholder="attrribute value" id="value" type="text" class="validate">
+        <label for="value">Attribute value</label></div>
+      <a class="waves-effect waves-light btn" value="Generate" style="z-index: 1000; position: relative;" onclick="add()">ADD</a>
+      <a class="waves-effect waves-light btn" value="Generate" style="z-index: 1000; position: relative;" onclick="pop()">POP</a></div>
+      <h1 align="center">Optimal path on LATTICE of CUBOID</h1>
+
+
+          <div class="col s12" style="bottom: 0px; position: absolute;">
+      <div class="ind">Enter source and target index to find optimal path</div>
+   
+      <div style="z-index: 1000; position: relative;">
+       <input placeholder="source index" id="source" type="text" class="validate">
+       <label for="name">Source Index</label></div>
+      <div style="z-index: 1000; position: relative;">
+        <input placeholder="target index" id="sink" type="text" class="validate">
+        <label for="value">Target Index</label></div>
+      <a class="waves-effect waves-light btn" value="Generate" style="z-index: 1000; position: relative;" onclick="find()">Find</a>
+      <div class="nil"></div>
+      </div>
+       <div id="Lattice"></div>
+       <script src="code.js"></script>
+     </body>
+     </html>
