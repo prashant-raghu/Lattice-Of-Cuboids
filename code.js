@@ -14,6 +14,8 @@ var snkind;
 var garbage;
 var counter;
 var cond = false;
+var currentarray = [];
+var nextcurarray = [];
 
 function bubbleSort() {
   var len = sortedval.length;
@@ -327,8 +329,6 @@ function find() {
 
 
 
-
-
     for (val1 of lowerarray) {
       for (val2 of greaterarray) {
         if (val1 === val2) {
@@ -352,12 +352,28 @@ function find() {
     console.log(sortedval);
     if (subarray.length = greaterarray.length - lowerarray.length) {
       document.querySelector('.nil').innerHTML = "Path doesn't exist";
+    } else {
+      document.querySelector('.nil').innerHTML = "Path Highlighted";
+      //fun begins//most intense part of the code begins here
+      currentarray = lowerarray.slice(0);
+      nextcurarray = subarray[0];
+        edgehighlighter(0);
+        //generate data_cube
     }
-    else {
-    document.querySelector('.nil').innerHTML = "Path Highlighted";
-    //fun begins//most intense part of the code begins here
-    }
-
-
   }
+}
+function edgehighlighter(low) {
+  if (low == greaterarray.length - lowerarray.length-1) {
+    return 0;
+  }
+  //edge pusher
+  for(value of wholearray){
+    for(v)
+  }
+
+
+  currentarray.push(subarray[low]);
+  nextcurarray.push(subarray[low+1]);
+  edgehighlighter(low+1);
+
 }
