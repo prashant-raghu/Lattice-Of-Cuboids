@@ -13,6 +13,7 @@ var srcind;
 var snkind;
 var garbage;
 var counter;
+var cond= false;
 function bubbleSort() {
   var len = sortedval.length;
   for (var i = len - 1; i >= 0; i--) {
@@ -301,13 +302,16 @@ function pop() {
 Array.prototype.clone
 
 function find() {
-  if (snkind > last) {
-    document.querySelector('.nil').innerHTML = "Path doesn't exist";
-  } else {
-    dataJson = backupJson;
-    srcind = Math.min(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
+      dataJson = backupJson;
+   srcind = Math.min(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
     snkind = Math.max(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
 
+  if (snkind > last) {
+    document.querySelector('.nil').innerHTML = "Path doesn't exist";
+  } 
+  else {
+
+   
     lowerarray = wholearray.slice(srcind - 1, srcind);
     lowerarray = lowerarray[0];
 
@@ -316,23 +320,12 @@ function find() {
 
     subarray = wholearray.slice(snkind - 1, snkind);
     subarray = subarray[0];
-    for (v1 of lowerarray) {
-      for (v2 of greaterarray) {
-        if (v1 === v2) {
-          counter++;
-        }
-      }
-    }
-    if (counter === lowerarray.length) {
-      cond = true;
-    } else {
-      cond = false;
-    }
-    if (lowerarray.length === greaterarray.length) {
+   
+     if (lowerarray.length === greaterarray.length) {
       document.querySelector('.nil').innerHTML = "Path doesn't exist";
-    } else if (!cond) {
-      document.querySelector('.nil').innerHTML = "Path doesn't exist";
-    } else if (cond) {
+    } 
+
+    
       document.querySelector('.nil').innerHTML = "Path Highlighted";
 
       console.log(lowerarray);
@@ -356,7 +349,7 @@ function find() {
       console.log(subarray);
       console.log(sortedname);
       console.log(sortedval);
-
-    }
+    
+   
   }
 }
