@@ -223,7 +223,10 @@ function generate() {
   }
 
 
-  backupJson = dataJson;
+  //backupJson = dataJson;
+  //  backupJson = Array.from(dataJson);
+  backupJson = copy(dataJson);
+
   Promise.all([
       fetch('cy-style.json', {
         mode: 'no-cors'
@@ -263,7 +266,7 @@ function generate() {
     });
 
 }
-
+//error here not working properly, add shows ascii code at resultvalue.
 function add() {
   var here = document.getElementById("name").value.charCodeAt(0);
   var there = parseInt(document.getElementById("value").value);
@@ -272,18 +275,15 @@ function add() {
   set.push(here);
   value.push(there)
   for (a of set) {
-    somethingString = somethingString + String.fromCharCode(a);
-    somethingString = somethingString + ", "
-
+    somethingString = somethingString + String.fromCharCode(a) + " ";
   }
   document.querySelector('.resultname').innerHTML = somethingString;
-  for (a of value) {
-    someString = someString + a.toString();
-    someString = someString + ", "
-
+  for (b of value) {
+    someString = someString + b.toString() + " ";
   }
   document.querySelector('.resultvalue').innerHTML = someString;
 }
+
 
 function pop() {
   set.pop();
@@ -291,21 +291,30 @@ function pop() {
   var someString = "";
   var somethingString = "";
   for (a of set) {
-    somethingString = somethingString + String.fromCharCode(a);
-    somethingString = somethingString + " "
+    somethingString = somethingString + String.fromCharCode(a) + " ";
 
   }
   document.querySelector('.resultname').innerHTML = somethingString;
-  for (a of value) {
-    someString = someString + a.toString();
-    someString = someString + ", "
+  for (b of value) {
+    someString = someString + b.toString() + " ";
   }
   document.querySelector('.resultvalue').innerHTML = someString;
 }
-Array.prototype.clone
+
+function copy(o) {
+  var output, v, key;
+  output = Array.isArray(o) ? [] : {};
+  for (key in o) {
+    v = o[key];
+    output[key] = (typeof v === "object") ? copy(v) : v;
+  }
+  return output;
+}
 
 function find() {
-  dataJson = backupJson;
+
+  // dataJson = Array.from(backupJson);
+  dataJson = copy(backupJson);
   srcind = Math.min(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
   snkind = Math.max(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
 
@@ -313,16 +322,9 @@ function find() {
     document.querySelector('.nil').innerHTML = "Path doesn't exist";
   } else {
 
-
-    lowerarray = wholearray.slice(srcind - 1, srcind);
-    lowerarray = lowerarray[0];
-
-    greaterarray = wholearray.slice(snkind - 1, snkind);
-    greaterarray = greaterarray[0];
-
-    subarray = wholearray.slice(snkind - 1, snkind);
-    subarray = subarray[0];
-
+    lowerarray = Array.from(wholearray[srcind - 1]);
+    greaterarray = Array.from(wholearray[snkind - 1]);
+    subarray = Array.from(wholearray[snkind - 1]);
     if (lowerarray.length === greaterarray.length) {
 
     }
@@ -342,38 +344,131 @@ function find() {
       ind = set.indexOf(l);
       subarrayval.push(value[ind]);
     }
-    sortedname = subarray.slice(0);
-    sortedval = subarrayval.slice(0);
+    sortedname = Array.from(subarray);
+    sortedval = Array.from(subarrayval);
     var call = bubbleSort();
+    // console.log(wholearray);
     console.log(lowerarray);
     console.log(greaterarray);
-    console.log(subarray);
+    // console.log(subarray);
     console.log(sortedname);
     console.log(sortedval);
-    if (subarray.length = greaterarray.length - lowerarray.length) {
+    if (subarray.length != greaterarray.length - lowerarray.length) {
       document.querySelector('.nil').innerHTML = "Path doesn't exist";
     } else {
       document.querySelector('.nil').innerHTML = "Path Highlighted";
       //fun begins//most intense part of the code begins here
-      currentarray = lowerarray.slice(0);
-      nextcurarray = subarray[0];
-        edgehighlighter(0);
-        //generate data_cube
+      currentarray = [];
+      nextcurarray = [];
+      currentarray = Array.from(lowerarray);
+      nextcurarray = Array.from(lowerarray);
+      var tempval = sortedname[0];
+      nextcurarray.push(tempval);
+      // var result = edgehighlighter(0);
+      // generate data_cube
+
+
+      var low = 0;
+      while (nextcurarray.length <= greaterarray.length) {
+        var count = 0;
+        var count2 = 0;
+        var lowind;
+        var upind;
+        var it;
+        var it2;
+        it = 0;
+        count = 0;
+        for (value of wholearray) {
+          for (a of currentarray) {
+            for (b of value) {
+              if (a === b) {
+                count++;
+              }
+            }
+          }
+          if (count === currentarray.length) {
+            lowind = it;
+            break;
+          }
+          count = 0;
+          it++;
+        }
+        it2 = 0;
+        count2 = 0;
+        for (value of wholearray) {
+          for (a of nextcurarray) {
+            for (b of value) {
+              if (a === b) count2++;
+            }
+          }
+          if (count2 === nextcurarray.length) {
+            upind = it2;
+            break;
+
+          }
+          it2++;
+          count2 = 0;
+        }
+        upind = upind + 1;
+        lowind = lowind + 1;
+        console.log(lowind);
+        console.log(upind);
+
+        for (data1 of dataJson) {
+
+          if (data1.data.source === lowind.toString() && data1.data.target === upind.toString()) {
+            data1.data.group = 'coexp1';
+          } else if (data1.data.source === upind.toString() && data1.data.target === lowind.toString()) {
+            data1.data.group = 'coexp1';
+          }
+        }
+
+        //  currentarray.push(nextcurarray[nextcurarray.length - 1]);
+        currentarray.push(sortedname[low])
+        nextcurarray.push(sortedname[low + 1]);
+        low = low + 1;
+
+      }
+
+
+
+      Promise.all([
+          fetch('cy-style.json', {
+            mode: 'no-cors'
+          })
+          .then(function(res) {
+            return res.json()
+          }), dataJson
+        ])
+        .then(function(dataArray) {
+          var Lattice = window.Lattice = cytoscape({
+            container: document.getElementById('Lattice'),
+
+            layout: {
+              name: 'preset',
+              idealEdgeLength: 0,
+              nodeOverlap: 0,
+              refresh: 0,
+              fit: true,
+              padding: 0,
+              randomize: false,
+              componentSpacing: 0,
+              nodeRepulsion: 0,
+              edgeElasticity: 100,
+              nestingFactor: 0,
+              gravity: 0,
+              numIter: 0,
+              initialTemp: 0,
+              coolingFactor: 0,
+              minTemp: 0
+            },
+
+            style: dataArray[0],
+
+            elements: dataArray[1]
+
+          });
+        });
     }
   }
-}
-function edgehighlighter(low) {
-  if (low == greaterarray.length - lowerarray.length-1) {
-    return 0;
-  }
-  //edge pusher
-  for(value of wholearray){
-    for(v)
-  }
-
-
-  currentarray.push(subarray[low]);
-  nextcurarray.push(subarray[low+1]);
-  edgehighlighter(low+1);
-
 }
