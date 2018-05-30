@@ -1,5 +1,16 @@
 set = [84, 80, 77, 83, 67];
 avalue = [10, 40, 30, 20, 50];
+
+var someString = "Values: ";
+  var somethingString = "Names: ";
+  for (a of set) {
+    somethingString = somethingString + String.fromCharCode(a) + " ";
+  }
+  document.querySelector('.resultname').innerHTML = somethingString;
+  for (b of avalue) {
+    someString = someString + b.toString() + " ";
+  }
+  document.querySelector('.resultvalue').innerHTML = someString;
 var subarray = [];
 var greaterarray = [];
 var temparray = [];
@@ -16,7 +27,7 @@ var counter;
 var cond = false;
 var currentarray = [];
 var nextcurarray = [];
-
+var dummyempty = [];
 function bubbleSort() {
   var len = sortedval.length;
   for (var i = len - 1; i >= 0; i--) {
@@ -36,7 +47,7 @@ function bubbleSort() {
 }
 
 function generate() {
-
+  wholearray = Array.from(dummyempty);
   function k_combinations(set, k) {
     var i, j, combs, head, tailcombs;
     if (k > set.length || k <= 0) {
@@ -267,8 +278,8 @@ function generate() {
 function add() {
   var here = document.getElementById("name").value.charCodeAt(0);
   var there = parseInt(document.getElementById("value").value);
-  var someString = "";
-  var somethingString = "";
+  var someString = "Values: ";
+  var somethingString = "Names: ";
   set.push(here);
   avalue.push(there)
   for (a of set) {
@@ -285,8 +296,8 @@ function add() {
 function pop() {
   set.pop();
   avalue.pop();
-  var someString = "";
-  var somethingString = "";
+  var someString = "Values: ";
+  var somethingString = "Names: ";
   for (a of set) {
     somethingString = somethingString + String.fromCharCode(a) + " ";
   }
@@ -309,6 +320,7 @@ function copy(o) {
 
 function find() {
 
+  generate();
   // dataJson = Array.from(backupJson);
   dataJson = copy(backupJson);
   srcind = Math.min(parseInt(document.getElementById("source").value), parseInt(document.getElementById("sink").value))
@@ -340,7 +352,7 @@ function find() {
     sortedname = Array.from(subarray);
     sortedval = Array.from(subarrayval);
     var call = bubbleSort();
-    // console.log(wholearray);
+    console.log(wholearray);
     console.log(lowerarray);
     console.log(greaterarray);
     console.log(subarray);
@@ -350,14 +362,12 @@ function find() {
       document.querySelector('.nil').innerHTML = "Path doesn't exist";
     } else {
       document.querySelector('.nil').innerHTML = "Path Highlighted";
-      //fun begins//most intense part of the code begins here
       currentarray = [];
       nextcurarray = [];
       currentarray = Array.from(lowerarray);
       nextcurarray = Array.from(lowerarray);
       var tempval = sortedname[0];
       nextcurarray.push(tempval);
-      // var result = edgehighlighter(0);
       // generate data_cube
       var low = 0;
       while (nextcurarray.length <= greaterarray.length) {
@@ -406,14 +416,12 @@ function find() {
         console.log(upind);
 
         for (data1 of dataJson) {
-
-          if (data1.data.source === lowind.toString() && data1.data.target === upind.toString()) {
+        if (data1.data.source === lowind.toString() && data1.data.target === upind.toString()) {
             data1.data.group = 'coexp1';
           } else if (data1.data.source === upind.toString() && data1.data.target === lowind.toString()) {
             data1.data.group = 'coexp1';
           }
         }
-        //  currentarray.push(nextcurarray[nextcurarray.length - 1]);
         currentarray.push(sortedname[low])
         nextcurarray.push(sortedname[low + 1]);
         low = low + 1;
