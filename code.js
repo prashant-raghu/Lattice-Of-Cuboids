@@ -69,7 +69,7 @@ function generate() {
   iterator = 1;
   y = 300;
 
-  dataJson.push({
+  dataJson.push({    //first node "ALL"
     "data": {
       "id": "0",
       "idInt": 0,
@@ -222,9 +222,6 @@ function generate() {
 
   }
 
-
-  //backupJson = dataJson;
-  //  backupJson = Array.from(dataJson);
   backupJson = copy(dataJson);
 
   Promise.all([
@@ -300,7 +297,7 @@ function pop() {
   }
   document.querySelector('.resultvalue').innerHTML = someString;
 }
-
+// Function to Deep copy objects that contain cycles.
 function copy(o) {
   var output, v, key;
   output = Array.isArray(o) ? [] : {};
@@ -328,10 +325,7 @@ function find() {
     if (lowerarray.length === greaterarray.length) {
 
     }
-
-
-
-    for (val1 of lowerarray) {
+  for (val1 of lowerarray) {
       for (val2 of greaterarray) {
         if (val1 === val2) {
           var dex = subarray.indexOf(val2);
@@ -366,8 +360,6 @@ function find() {
       nextcurarray.push(tempval);
       // var result = edgehighlighter(0);
       // generate data_cube
-
-
       var low = 0;
       while (nextcurarray.length <= greaterarray.length) {
         var count = 0;
@@ -429,9 +421,6 @@ function find() {
         low = low + 1;
 
       }
-
-
-
       Promise.all([
           fetch('cy-style.json', {
             mode: 'no-cors'
