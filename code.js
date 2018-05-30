@@ -1,5 +1,5 @@
 set = [84, 80, 77, 83, 67];
-value = [10, 40, 30, 20, 50];
+avalue = [10, 40, 30, 20, 50];
 var subarray = [];
 var greaterarray = [];
 var temparray = [];
@@ -69,7 +69,7 @@ function generate() {
   iterator = 1;
   y = 300;
 
-  dataJson.push({
+  dataJson.push({ //first node "ALL"
     "data": {
       "id": "0",
       "idInt": 0,
@@ -222,9 +222,6 @@ function generate() {
 
   }
 
-
-  //backupJson = dataJson;
-  //  backupJson = Array.from(dataJson);
   backupJson = copy(dataJson);
 
   Promise.all([
@@ -273,12 +270,12 @@ function add() {
   var someString = "";
   var somethingString = "";
   set.push(here);
-  value.push(there)
+  avalue.push(there)
   for (a of set) {
     somethingString = somethingString + String.fromCharCode(a) + " ";
   }
   document.querySelector('.resultname').innerHTML = somethingString;
-  for (b of value) {
+  for (b of avalue) {
     someString = someString + b.toString() + " ";
   }
   document.querySelector('.resultvalue').innerHTML = someString;
@@ -287,20 +284,19 @@ function add() {
 
 function pop() {
   set.pop();
-  value.pop();
+  avalue.pop();
   var someString = "";
   var somethingString = "";
   for (a of set) {
     somethingString = somethingString + String.fromCharCode(a) + " ";
-
   }
   document.querySelector('.resultname').innerHTML = somethingString;
-  for (b of value) {
+  for (b of avalue) {
     someString = someString + b.toString() + " ";
   }
   document.querySelector('.resultvalue').innerHTML = someString;
 }
-
+// Function to Deep copy objects that contain cycles.
 function copy(o) {
   var output, v, key;
   output = Array.isArray(o) ? [] : {};
@@ -328,9 +324,6 @@ function find() {
     if (lowerarray.length === greaterarray.length) {
 
     }
-
-
-
     for (val1 of lowerarray) {
       for (val2 of greaterarray) {
         if (val1 === val2) {
@@ -342,7 +335,7 @@ function find() {
     subarrayval = [];
     for (l of subarray) {
       ind = set.indexOf(l);
-      subarrayval.push(value[ind]);
+      subarrayval.push(avalue[ind]);
     }
     sortedname = Array.from(subarray);
     sortedval = Array.from(subarrayval);
@@ -350,7 +343,7 @@ function find() {
     // console.log(wholearray);
     console.log(lowerarray);
     console.log(greaterarray);
-    // console.log(subarray);
+    console.log(subarray);
     console.log(sortedname);
     console.log(sortedval);
     if (subarray.length != greaterarray.length - lowerarray.length) {
@@ -366,8 +359,6 @@ function find() {
       nextcurarray.push(tempval);
       // var result = edgehighlighter(0);
       // generate data_cube
-
-
       var low = 0;
       while (nextcurarray.length <= greaterarray.length) {
         var count = 0;
@@ -378,9 +369,9 @@ function find() {
         var it2;
         it = 0;
         count = 0;
-        for (value of wholearray) {
+        for (values of wholearray) {
           for (a of currentarray) {
-            for (b of value) {
+            for (b of values) {
               if (a === b) {
                 count++;
               }
@@ -395,9 +386,9 @@ function find() {
         }
         it2 = 0;
         count2 = 0;
-        for (value of wholearray) {
+        for (values of wholearray) {
           for (a of nextcurarray) {
-            for (b of value) {
+            for (b of values) {
               if (a === b) count2++;
             }
           }
@@ -422,16 +413,12 @@ function find() {
             data1.data.group = 'coexp1';
           }
         }
-
         //  currentarray.push(nextcurarray[nextcurarray.length - 1]);
         currentarray.push(sortedname[low])
         nextcurarray.push(sortedname[low + 1]);
         low = low + 1;
 
       }
-
-
-
       Promise.all([
           fetch('cy-style.json', {
             mode: 'no-cors'
