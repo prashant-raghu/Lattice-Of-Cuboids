@@ -1,5 +1,5 @@
 set = [84, 80, 77, 83, 67];
-avalue = [10, 40, 30, 20, 50];
+avalue = [30, 10, 50, 20, 40];
 
 var someString = "Values: ";
   var somethingString = "Names: ";
