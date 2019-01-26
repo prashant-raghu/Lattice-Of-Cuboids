@@ -1,5 +1,5 @@
 # Data-cube
-Data-cube formation and local-minima  path finding with efficient possible space and time complexity.
+Data-cube formation and local-minima  path finding with linear space and time complexities.
 ![alt text](images/5a.JPG)
 ![alt text](images/4a.JPG)
 ![alt text](images/6.JPG)
